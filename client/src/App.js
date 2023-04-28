@@ -374,29 +374,342 @@
 // usereducer & useContext
 // ------------------------------------------------------------------
 
-import React, { createContext, useReducer } from "react";
-import reducer from "./reducer";
-import { initialState } from "./reducer";
-import ComponentD from "./ComponentD";
-import ComponentE from "./ComponentE";
-import ComponentF from "./ComponentF";
+// import React, { createContext, useReducer } from "react";
+// import reducer from "./reducer";
+// import { initialState } from "./reducer";
+// import ComponentD from "./ComponentD";
+// import ComponentE from "./ComponentE";
+// import ComponentF from "./ComponentF";
 
-export const CountContext = createContext();
+// export const CountContext = createContext();
+
+// const App = () => {
+//   const [count, dispatch] = useReducer(reducer, initialState);
+//   return (
+//     <div>
+//       <h1>Count - {count}</h1>
+//       <CountContext.Provider
+//         value={{ countState: count, countDispatch: dispatch }}
+//       >
+//         <ComponentD />
+//         <ComponentE />
+//         <ComponentF />
+//       </CountContext.Provider>
+//     </div>
+//   );
+// };
+
+// export default App;
+
+
+
+
+
+
+
+
+// ---------------------------------------------------------
+
+// Data Fetching from API Using useEffect & useState
+// --------------------------------------
+
+
+
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+
+// const App = () => {
+//   const [loading,setLoading] = useState(true);
+//   const[error,setError] = useState("");
+//   const [post, setPost] = useState({});
+  
+//   useEffect(() => {
+//     axios
+//       .get("https://jsonplaceholder.typicode.com/posts/1")
+//       .then((res) => {
+//         setLoading(false)
+//         setError("")
+//         setPost(res.data);
+        
+//       })
+//       .catch((err) => {
+//         setLoading(false)
+//         setError("something went wrong");
+//         setPost({})
+//       });
+//   }, []);
+//   return (
+//     <div>
+//       {loading ? "Loading..." : post.title}
+//       {error ? error : null}
+//     </div>
+//   );
+// };
+
+// export default App;
+
+
+
+
+
+
+
+
+// ---------------------------------------------------------
+
+// Data Fetching from API Using useEffect & useReducer
+// --------------------------------------
+
+
+
+// import React, { useEffect, useReducer } from "react";
+// import axios from "axios";
+
+// const initialState = {
+//   loading: true,
+//   error: "",
+//   post: {},
+// }
+
+// const reducer = (state, action) => {
+//   switch (action.type){
+//     case "FETCH_SUCCESS":
+//       return {
+//         loading: false,
+//         error: "",
+//         post: action.payload,
+//       };
+//     case "FETCH_ERROR":
+//       return {
+//         loading: false,
+//         error: "something went wrong",
+//         post: {},
+//       };
+    
+
+//   }
+// }
+
+// const App = () => {
+//   const [state,dispatch] = useReducer(reducer, initialState);
+  
+//   useEffect(() => {
+//     axios
+//       .get("https://jsonplaceholder.typicode.com/posts/1")
+//       .then((res) => {
+//         dispatch({type: "FETCH_SUCCESS", payload: res.data});
+//       })
+//       .catch((err) => {
+//         dispatch({type: "FETCH_ERROR"});
+//       });
+//   }, []);
+//   return (
+//     <div>
+//       {state.loading ? "Loading..." : state.post.title}
+//       {state.error ? state.error : null}
+//     </div>
+//   );
+// };
+
+// export default App;
+
+
+
+
+
+
+
+
+// ---------------------------------------------------
+// useCallback
+// ---------------------------------------------------
+
+// import React from 'react'
+// import ParentComponent from './components/ParentComponent'
+
+// const App = () => {
+//   return (
+//     <div><ParentComponent /></div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+
+//--------------------------------------------------------------
+// useMemo
+//--------------------------------------------------------------
+
+// import React, { useMemo, useState } from 'react'
+
+// const App = () => {
+//   const [countOne,setCountOne] = useState(0)
+//   const [countTwo,setCountTwo] = useState(0)
+//   const incrementCountOne = () => {
+//     setCountOne(countOne+1)
+//   }
+//   const incrementCountTwo = () => {
+//     setCountTwo(countTwo+1)
+//   }
+//   const isEven = useMemo(()=> {
+//     let i = 0;
+//     while(i<200000000000) i++;
+//     return countOne%2===0;
+//   },[countOne]);
+
+//   return (
+//     <div>
+//       <button onClick={incrementCountOne}>Count One - {countOne}</button>
+//       <div>{isEven ? "Even" : "odd"}</div>
+//       <button onClick={incrementCountTwo}>Count Two - {countTwo}</button>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------
+// useRef hook - ex1
+// ----------------------------------------------------------
+
+
+// import React, { useEffect, useRef } from 'react'
+
+// const App = () => {
+//   const inputRef = useRef(null);
+
+//   useEffect(() => {
+//     inputRef.current.focus();
+//   }, [])
+//   return (
+//     <div>
+//       <input ref={inputRef} type='text'/>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+// ----------------------------------------
+// useRef - ex2
+//-----------------------------------------
+
+// import React, { useEffect, useRef, useState } from 'react'
+
+// const App = () => {
+//   const [timer, setTimer] = useState(0);
+//   const intervalRef = useRef(null);
+//   useEffect(() => {
+//     intervalRef.current = setInterval(() => {
+//       setTimer((prevTimer) => prevTimer+1);
+//     }, 1000);
+//     return () => {
+//       clearInterval(intervalRef.current);
+//     }
+//   },[])
+//   return (
+//     <div>
+//       <h1>Timer - {timer}</h1>
+//       <button onClick={()=> clearInterval(intervalRef.current
+//         )}>Clear Timer</button>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+
+
+
+// ------------------------------------------------------------------
+// custom Hooks - ex1
+// ------------------------------------------------------------------
+
+
+// import React from 'react'
+// import DocTitle from './Custom Hooks/ex 1/DocTitle'
+
+// const App = () => {
+//   return (
+//     <div>
+//       <DocTitle />
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+
+// ------------------------------------------------------------------
+// custom Hooks - ex2
+// ------------------------------------------------------------------
+
+
+// import React from 'react'
+// import CountOne from './Custom Hooks/ex 2/CountOne'
+// import CountTwo from './Custom Hooks/ex 2/CountTwo'
+
+
+// const App = () => {
+//   return (
+//     <div>
+//       <CountOne/>
+//       <CountTwo/>
+//     </div>
+//   )
+// }
+
+// export default App
+
+
+
+
+
+
+
+// ------------------------------------------------------------------
+// custom Hooks - ex3
+// ------------------------------------------------------------------
+
+import React from 'react'
+import UserForm from './Custom Hooks/ex 3/UserForm'
 
 const App = () => {
-  const [count, dispatch] = useReducer(reducer, initialState);
   return (
     <div>
-      <h1>Count - {count}</h1>
-      <CountContext.Provider
-        value={{ countState: count, countDispatch: dispatch }}
-      >
-        <ComponentD />
-        <ComponentE />
-        <ComponentF />
-      </CountContext.Provider>
+      <UserForm/>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App
