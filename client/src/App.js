@@ -401,19 +401,10 @@
 
 // export default App;
 
-
-
-
-
-
-
-
 // ---------------------------------------------------------
 
 // Data Fetching from API Using useEffect & useState
 // --------------------------------------
-
-
 
 // import React, { useEffect, useState } from "react";
 // import axios from "axios";
@@ -422,7 +413,7 @@
 //   const [loading,setLoading] = useState(true);
 //   const[error,setError] = useState("");
 //   const [post, setPost] = useState({});
-  
+
 //   useEffect(() => {
 //     axios
 //       .get("https://jsonplaceholder.typicode.com/posts/1")
@@ -430,7 +421,7 @@
 //         setLoading(false)
 //         setError("")
 //         setPost(res.data);
-        
+
 //       })
 //       .catch((err) => {
 //         setLoading(false)
@@ -448,19 +439,10 @@
 
 // export default App;
 
-
-
-
-
-
-
-
 // ---------------------------------------------------------
 
 // Data Fetching from API Using useEffect & useReducer
 // --------------------------------------
-
-
 
 // import React, { useEffect, useReducer } from "react";
 // import axios from "axios";
@@ -485,14 +467,13 @@
 //         error: "something went wrong",
 //         post: {},
 //       };
-    
 
 //   }
 // }
 
 // const App = () => {
 //   const [state,dispatch] = useReducer(reducer, initialState);
-  
+
 //   useEffect(() => {
 //     axios
 //       .get("https://jsonplaceholder.typicode.com/posts/1")
@@ -513,13 +494,6 @@
 
 // export default App;
 
-
-
-
-
-
-
-
 // ---------------------------------------------------
 // useCallback
 // ---------------------------------------------------
@@ -534,12 +508,6 @@
 // }
 
 // export default App
-
-
-
-
-
-
 
 //--------------------------------------------------------------
 // useMemo
@@ -573,20 +541,9 @@
 
 // export default App
 
-
-
-
-
-
-
-
-
-
-
 // ------------------------------------------------------------
 // useRef hook - ex1
 // ----------------------------------------------------------
-
 
 // import React, { useEffect, useRef } from 'react'
 
@@ -604,11 +561,6 @@
 // }
 
 // export default App
-
-
-
-
-
 
 // ----------------------------------------
 // useRef - ex2
@@ -638,18 +590,9 @@
 
 // export default App
 
-
-
-
-
-
-
-
-
 // ------------------------------------------------------------------
 // custom Hooks - ex1
 // ------------------------------------------------------------------
-
 
 // import React from 'react'
 // import DocTitle from './Custom Hooks/ex 1/DocTitle'
@@ -664,21 +607,13 @@
 
 // export default App
 
-
-
-
-
-
-
 // ------------------------------------------------------------------
 // custom Hooks - ex2
 // ------------------------------------------------------------------
 
-
 // import React from 'react'
 // import CountOne from './Custom Hooks/ex 2/CountOne'
 // import CountTwo from './Custom Hooks/ex 2/CountTwo'
-
 
 // const App = () => {
 //   return (
@@ -691,25 +626,107 @@
 
 // export default App
 
-
-
-
-
-
-
 // ------------------------------------------------------------------
 // custom Hooks - ex3
 // ------------------------------------------------------------------
 
-import React from 'react'
-import UserForm from './Custom Hooks/ex 3/UserForm'
+// import React from 'react'
+// import UserForm from './Custom Hooks/ex 3/UserForm'
+
+// const App = () => {
+//   return (
+//     <div>
+//       <UserForm/>
+//     </div>
+//   )
+// }
+
+// export default App
+
+// -------------------------------------------------------------------------
+// Pokemon App
+// --------------------------------------------------------------------------
+
+// import React, { useEffect, useState } from "react";
+// import axios from "axios";
+// import PokemonList from "./components/PokemonList";
+// import Pagination from "./components/Pagination";
+// const App = () => {
+//   const [pokemon, setPokemon] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [currentPageUrl, setCurrentPageUrl] = useState(
+//     "https://pokeapi.co/api/v2/pokemon"
+//   );
+//   const [nextPageUrl, setNextPageUrl] = useState();
+//   const [prevPageUrl, setPrevPageUrl] = useState();
+
+//   useEffect(() => {
+//     let cancel;
+//     setLoading(true);
+//     axios
+//       .get(currentPageUrl, {
+//         cancelToken: new axios.CancelToken((c) => (cancel = c)),
+//       })
+//       .then((res) => {
+//         setPokemon(res.data.results.map((p) => p.name));
+//         setLoading(false);
+//         setNextPageUrl(res.data.next);
+//         setPrevPageUrl(res.data.previous);
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//         setLoading(false);
+//       });
+//     return () => {
+//       cancel();
+//     };
+//   }, [currentPageUrl]);
+//   if (loading) return "Loading...";
+//   function goToNextPage() {
+//     setCurrentPageUrl(nextPageUrl);
+//   }
+//   function goToPrevPage() {
+//     setCurrentPageUrl(prevPageUrl);
+//   }
+//   return (
+//     <div>
+//       <PokemonList pokemon={pokemon} />
+//       <Pagination
+//         goToNextPage={nextPageUrl ? goToNextPage : null}
+//         goToPrevPage={prevPageUrl ? goToPrevPage : null}
+//       />
+//     </div>
+//   );
+// };
+
+// export default App;
+
+// ---------------------------------------------------------------------
+// react redux
+// -----------------------------------------------------------------------
+
+import React from "react";
+import CakeContainer from "./components/CakeContainer";
+import HooksCakeContainer from "./components/HooksCakeContainer";
+import IceCreamContainer from "./components/IceCreamContainer";
+import HooksIceCreamContainer from "./components/HooksIceCreamContainer";
+import NewCakeContainer from "./components/NewCakeContainer";
+import ItemContainer from "./components/ItemContainer";
+import UserContainer from "./components/UserContainer";
 
 const App = () => {
   return (
     <div>
-      <UserForm/>
+      {/* <ItemContainer cake />
+      <ItemContainer iceCream />
+      <CakeContainer />
+      <HooksCakeContainer />
+      <IceCreamContainer />
+      <HooksIceCreamContainer />
+      <NewCakeContainer /> */}
+      <UserContainer />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
